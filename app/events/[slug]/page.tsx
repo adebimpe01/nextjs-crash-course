@@ -4,8 +4,6 @@ import BookEvent from '@/components/BookEvent';
 import EventCard from '@/components/EventCard';
 import { IEvent } from '@/Database/event.model';
 import { getSimilarEventsBySlug } from "@/lib/Actions/EventActions";
-import { cacheLife } from 'next/cache';
-import connection from 'next/server';
 
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -39,10 +37,6 @@ const EventTags = ({ tags }: { tags: string[] }) => (
 const bookings = 10;
 
 const EventDetailsPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
-    "use cache";
-    cacheLife("hours");
-
-    await connection();
 
   const { slug } = await params;
 

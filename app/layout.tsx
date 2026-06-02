@@ -51,7 +51,9 @@ export default function RootLayout({
               distortion={0.1}
             />
           </div>
-          {children}
+           <Suspense fallback={null}>
+            {children}
+          </Suspense>
         </body>
       </PostHogProvider>
     </html>
