@@ -1,29 +1,46 @@
 import EventCard from "@/components/EventCard";
-import  ExploreBtn  from "@/components/ExploreBtn";
-import { events } from "@/lib/constant";
+import ExploreBtn from "@/components/ExploreBtn";
+import { IEvent } from "@/Database/event.model";
+import {  cacheLife } from "next/cache";
 
-const page = () => {
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
+const page = async () => {
+  "use cache";
+  cacheLife("hours");
+  
+  let events: IEvent[] = [];
+
+  try {
+    const response = await fetch(`${BASE_URL}/api/events`);
+    if (!response.ok) throw new Error(`API error: ${response.status}`);
+    const data = await response.json();
+    events = data.events ?? [];
+  } catch (error) {
+    console.error("Failed to fetch events:", error);
+  }
+
   return (
-
     <section>
       <h1 className="text-center">The Hub To Every Dev <br /> Event You Can't Miss</h1>
-      <div className="text-center mt-5">
-      </div>
-      <p className="text-center mt-5">Hackatons,Meetups, Conferences, All In One Place</p>
-        <ExploreBtn />
-
-        <div className="mt-20 space-y-7">
-          <h3>Featured Events</h3>
-          <ul className="events">
-            {events.map((event) => (
-              <li key={event.title}>
+      <p className="text-center mt-5">Hackatons, Meetups, Conferences, All In One Place</p>
+      <ExploreBtn />
+      <div className="mt-20 space-y-7">
+        <h3>Featured Events</h3>
+        <ul className="events">
+          {events.length > 0 ? (
+            events.map((event: IEvent) => (
+              <li key={event.slug} className="list-none">
                 <EventCard {...event} />
               </li>
-            ))}
-          </ul>
-        </div>
+            ))
+          ) : (
+            <p className="text-light-200">No events found</p>
+          )}
+        </ul>
+      </div>
     </section>
-  )
-}
+  );
+};
 
-export default page
+export default page;
