@@ -4,7 +4,6 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  cacheComponents: true,
   images: {
     remotePatterns: [
       {
@@ -14,22 +13,25 @@ const nextConfig: NextConfig = {
     ]
   },
   async rewrites() {
-    
-  return [
-    {
-      source: '/ingest/static/:path*',
-      destination: `${process.env.NEXT_PUBLIC_POSTHOG_HOST}/static/:path*`,
-    },
-    {
-      source: '/ingest/:path*',
-      destination: `${process.env.NEXT_PUBLIC_POSTHOG_HOST}/:path*`,
-    },
-    {
-      source: '/ingest/decide',
-      destination: `${process.env.NEXT_PUBLIC_POSTHOG_HOST}/decide`,
-    },
-  ]
-},
+    const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
+
+    if (!posthogHost) return [];
+
+    return [
+      {
+        source: '/ingest/static/:path*',
+        destination: `${posthogHost}/static/:path*`,
+      },
+      {
+        source: '/ingest/:path*',
+        destination: `${posthogHost}/:path*`,
+      },
+      {
+        source: '/ingest/decide',
+        destination: `${posthogHost}/decide`,
+      },
+    ];
+  },
   skipTrailingSlashRedirect: true,
 };
 
