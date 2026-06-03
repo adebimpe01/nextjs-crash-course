@@ -51,7 +51,7 @@ export default function RootLayout({
               distortion={0.1}
             />
           </div>
-           <Suspense fallback={null}>
+           <Suspense fallback={<div>Loading...</div>}>
             {children}
           </Suspense>
         </body>

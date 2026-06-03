@@ -27,7 +27,7 @@ const page = async () => {
       <ExploreBtn />
       <div className="mt-20 space-y-7">
         <h3>Featured Events</h3>
-        <ul className="events">
+        <ul className="events px-5">
           {events.length > 0 ? (
             events.map((event: IEvent) => (
               <li key={event.slug} className="list-none">

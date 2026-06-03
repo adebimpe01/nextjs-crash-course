@@ -101,7 +101,7 @@ const EventDetailsPage = async ({ params }: { params: Promise<{ slug: string }> 
             ) : (
               <p className="text-red-500">Be the first to book your slot!</p>
             )}
-            <BookEvent eventId={event._id} slug={event.slug}  />
+            <BookEvent eventId={event._id.toString()} slug={event.slug} />
           </div>
         </aside>
       </div>
