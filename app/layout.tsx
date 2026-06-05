@@ -32,7 +32,7 @@ export default function RootLayout({
       lang="en" >
       <PostHogProvider>
         <body className={`${schibstedGrotesk.variable} ${martianMono.variable} min-h-screen antialiased`}>
-          <Suspense fallback={null}>
+          <Suspense fallback={<div>Loading...</div>}>
             <PostHogPageView />
           </Suspense>
 

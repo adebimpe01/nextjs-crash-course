@@ -25,9 +25,9 @@ const page = async () => {
       <h1 className="text-center">The Hub To Every Dev <br /> Event You Can't Miss</h1>
       <p className="text-center mt-5">Hackatons, Meetups, Conferences, All In One Place</p>
       <ExploreBtn />
-      <div className="mt-20 space-y-7">
+      <div className="mt-20 space-y-6 px-6">
         <h3>Featured Events</h3>
-        <ul className="events px-5">
+        <ul className="events ">
           {events.length > 0 ? (
             events.map((event: IEvent) => (
               <li key={event.slug} className="list-none">
